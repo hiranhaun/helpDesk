@@ -1,10 +1,9 @@
 package com.helpdesk.api.service.impl;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.helpdesk.api.entity.User;
@@ -28,19 +27,19 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Optional<User> findById(String id) {
-		return this.userRepository.findById(id);	
+	public User findById(String id) {
+		return this.userRepository.findOne(id);
 	}
 
 	@Override
 	public void delete(String id) {
-		this.userRepository.deleteById(id);
+		this.userRepository.delete(id);
 	}
 
 	@Override
 	public Page<User> findAll(int page, int count) {
-		PageRequest pageRequest =  PageRequest.of(page,count);
-		return userRepository.findAll(pageRequest);
+		Pageable pages = new PageRequest(page, count);
+		return this.userRepository.findAll(pages);
 	}
 
 }
