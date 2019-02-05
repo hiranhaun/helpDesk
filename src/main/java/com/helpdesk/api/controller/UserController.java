@@ -3,6 +3,7 @@ package com.helpdesk.api.controller;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.helpdesk.api.entity.User;
 import com.helpdesk.api.response.Response;
 import com.helpdesk.api.service.UserService;
-import com.mongodb.DuplicateKeyException;
 
 @RestController
 @RequestMapping("/api/user")

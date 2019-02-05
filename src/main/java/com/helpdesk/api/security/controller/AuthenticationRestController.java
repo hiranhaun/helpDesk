@@ -43,7 +43,7 @@ public class AuthenticationRestController {
 		final Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(), authenticationRequest.getPassword()));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getEmail());
-		final String token = jwtTokenUtil.generateToke(userDetails);
+		final String token = jwtTokenUtil.generateToken(userDetails);
 		final User user = userService.findByEmail(authenticationRequest.getEmail());
 		user.setPassword(null);
 		return ResponseEntity.ok(new CurrentUser(token, user));	
@@ -56,7 +56,7 @@ public class AuthenticationRestController {
 		final User user = userService.findByEmail(username);
 		
 		if (jwtTokenUtil.canTokenBeRefreshed(token)) {
-			String refreshedToken = jwtTokenUtil.refreshToke(token);
+			String refreshedToken = jwtTokenUtil.refreshToken(token);
 			return ResponseEntity.ok(new CurrentUser(refreshedToken, user));
 		} else {
 			return ResponseEntity.badRequest().body(null);

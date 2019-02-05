@@ -65,7 +65,7 @@ public class JwtTokenUtil implements Serializable {
 		return expiration.before(new Date());
 	}
 	
-	public String generateToke(UserDetails userDetails) {
+	public String generateToken(UserDetails userDetails) {
 		Map<String, Object> claims = new HashMap<>();
 		
 		claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
@@ -86,7 +86,7 @@ public class JwtTokenUtil implements Serializable {
 		return (!isTokenExpired(token));
 	}
 	
-	public String refreshToke(String token) {
+	public String refreshToken(String token) {
 		String refreshedToken;
 		try {
 			final Claims claims = getClaimsFromToken(token);
